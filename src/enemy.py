@@ -1,7 +1,7 @@
 import pygame 
-from Const import *
+from const import *
 
-class Breakable(pygame.Rect):
+class enemy(pygame.Rect):
     # Init array to store rect blocks
     __block = []
     
@@ -9,7 +9,7 @@ class Breakable(pygame.Rect):
     __blockHit = []
     
     def __init__(self, xpos, ypos, wid, ht, screen, state):
-        super(Breakable, self).__init__(xpos, ypos, wid, ht)
+        super(enemy, self).__init__(xpos, ypos, wid, ht)
         self.__xpos = xpos
         self.__ypos = ypos
         self.__wid = wid
@@ -33,12 +33,12 @@ class Breakable(pygame.Rect):
                 #Init hits to 0
                 self.__blockHit.append(0)
                 #Gap between blocks (x)
-                self.__xpos += self.__wid+4
+                self.__xpos += self.__wid+BLOCK_OFFSET
             
             #Move to next row beginning
             self.__xpos = BLOCK_X
             #Gap between blocks (y)
-            self.__ypos += self.__ht+4
+            self.__ypos += self.__ht+BLOCK_OFFSET
     
     def drawIt(self):
         for blocks in self.__block:

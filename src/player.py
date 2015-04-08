@@ -1,12 +1,12 @@
 import pygame
-from Const import *
+from const import *
 
-class Paddle(pygame.Rect):
+class player(pygame.Rect):
     __xspeed = None
     __yspeed = None
     
     def __init__(self, xpos, ypos, wid, ht, xspeed, yspeed):
-        super(Paddle, self).__init__(xpos, ypos, wid, ht)
+        super(player, self).__init__(xpos, ypos, wid, ht)
         self.__xspeed = xspeed
         self.__yspeed = yspeed
         self.__xpos = xpos

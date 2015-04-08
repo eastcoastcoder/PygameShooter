@@ -1,7 +1,7 @@
 import pygame
 from random import randint
-from Const import *
-from GameState import GameState
+from const import *
+from state import state
 
 class Gun(pygame.Rect):
     

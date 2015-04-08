@@ -19,12 +19,11 @@ C - Simple moving and shooting against stationary or nearly stationary obstacles
 '''
 import sys
 import pygame
-from Const import *
-from Paddle import Paddle
-from Breakable import Breakable
+from const import *
+from player import player
+from enemy import enemy
 from Gun import Gun
-from GameState import GameState
-from pygame.examples.eventlist import LastKey
+from state import state
 
 pygame.init()
 pygame.display.set_caption("Breakout")
@@ -32,7 +31,7 @@ scoreBoard = pygame.font.SysFont( "arial", 30 )
 screen = pygame.display.set_mode((SCREEN_WID_HT, SCREEN_WID_HT))
 clock = pygame.time.Clock()
 
-gameState = GameState(scoreBoard, screen)
+gameState = state(scoreBoard, screen)
 lastKey = '\0'
 fire = False
 
@@ -42,9 +41,9 @@ boundLeft = pygame.Rect(ORIGIN, ORIGIN, BOUND_WID, SCREEN_WID_HT)
 boundRight = pygame.Rect(SCREEN_WID_HT-BOUND_WID, ORIGIN, BOUND_WID, SCREEN_WID_HT)
 
 # Instantiate Rect-like Children
-player = Paddle(PLAYER_X, PLAYER_Y, PLAYER_WID, PLAYER_HT, PLAYER_SPEED, 0)
+player = player(PLAYER_X, PLAYER_Y, PLAYER_WID, PLAYER_HT, PLAYER_SPEED, 0)
 gun = Gun(CENTER, CENTER, PUCK_WD_HT, PUCK_WD_HT, -PLAYER_SPEED, PLAYER_SPEED, gameState)
-breakMe = Breakable(BLOCK_X, BLOCK_Y, BLOCK_WID, BLOCK_HT, screen, gameState)
+breakMe = enemy(BLOCK_X, BLOCK_Y, BLOCK_WID, BLOCK_HT, screen, gameState)
 
 def main():
     
@@ -93,7 +92,7 @@ def main():
         
         if (gameState.getPLives() == 0 or breakMe.getRemaining() == 0):
             gameState.drawIt(SCORE_LBL, GAMEOVER_LBL)
-            Breakable(BLOCK_X, BLOCK_Y, BLOCK_WID, BLOCK_HT, screen, gameState)
+            enemy(BLOCK_X, BLOCK_Y, BLOCK_WID, BLOCK_HT, screen, gameState)
             
             pygame.display.flip()
             pygame.time.delay(3000)

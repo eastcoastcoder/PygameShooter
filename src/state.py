@@ -1,6 +1,6 @@
-from Const import *
+from const import *
 
-class GameState:
+class state:
     __PScore = 0
     __PLives = 5
     __lastKey = ''
