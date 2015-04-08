@@ -34,6 +34,7 @@ clock = pygame.time.Clock()
 
 gameState = GameState(scoreBoard, screen)
 lastKey = '\0'
+fire = False
 
 # Instantiate Basic Rects
 boundTop = pygame.Rect(ORIGIN, ORIGIN, SCREEN_WID_HT, BOUND_WID)
@@ -49,22 +50,22 @@ def main():
     
     #Player Control
     def moveIt(key):
-        lastKey = 'O'
+        
         if key[pygame.K_LEFT]:
             player.checkIt("MOVE_LEFT")
-            lastKey = 'L'
+            gameState.setLastKey('L')
         if key[pygame.K_RIGHT]:
             player.checkIt("MOVE_RIGHT")
-            lastKey = 'R'
+            gameState.setLastKey('R')
         if key[pygame.K_UP]:
             player.checkIt("MOVE_UP")
-            lastKey = 'U'
+            gameState.setLastKey('U')
         if key[pygame.K_DOWN]:
             player.checkIt("MOVE_DOWN")
-            lastKey = 'D'
+            gameState.setLastKey('D')
         if key[pygame.K_SPACE]:
-            gun.fire(player.getX(), player.getY(), lastKey)
-            gun.movePuck(lastKey)
+            gun.fire(player.getX(), player.getY())
+            #lastKey = '\0'
             
         # Handle Close
         for event in pygame.event.get():
@@ -73,13 +74,12 @@ def main():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 sys.exit()
     
-    '''
+    
     def checkIt():
         gun.checkPuck(player, boundLeft, boundRight, boundTop)
         breakMe.checkIt(gun)
         gun.checkOOB()
-    '''
-                 
+             
     def drawIt():
         screen.fill((BLACK))
         
@@ -106,8 +106,8 @@ def main():
     while True:
         moveIt(pygame.key.get_pressed())
             
-        #checkIt()
-        
+        checkIt()
+        gun.movePuck(gameState.getLastKey())
             
         drawIt()
         clock.tick(30)
