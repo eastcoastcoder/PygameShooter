@@ -17,19 +17,14 @@ class bullet(pygame.Rect):
         self.__screen = screen
         self.__state = state
         
-        self.__r = 30
-        self.__g = 144
+        self.__r = 255
+        self.__g = 255
         self.__b = 255
         
         self.__fire = False
         
-    def checkPuck(self, player, boundLeft, boundRight, boundTop):
-        for bullet in self.__bullets:
-            self.__bullets.remove(bullet)
-    
-            #if (self.colliderect(player) or self.colliderect(boundTop)):
-            #    self.__bullets.remove(bullet)
-        
+    def checkIt(self, player, boundLeft, boundRight, boundTop):
+        for bullet in self.__bullets:        
             if (self.colliderect(boundLeft) or self.colliderect(boundRight)):
                 self.__bullets.remove(bullet)
         
@@ -37,7 +32,7 @@ class bullet(pygame.Rect):
         for bullet in self.__bullets:
             pygame.draw.rect(self.__screen, (self.__r, self.__g, self.__b), bullet)
     
-    def move(self, playerDirection):
+    def moveIt(self, playerDirection):
         if self.__fire == True:
             if playerDirection == 'MOVE_DOWN':
                 self.y += self.__yspeed
@@ -50,7 +45,7 @@ class bullet(pygame.Rect):
         
     def fire(self, playerPosX, playerPosY):
         self.__fire = True
-        self.__bullets.append(pygame.Rect(playerPosX, playerPosX, self.__wid, self.__ht))
+        self.__bullets.append(self)
         self.drawIt()
         print self.__bullets
         

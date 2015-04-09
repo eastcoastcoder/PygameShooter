@@ -24,7 +24,6 @@ class state:
         self.__PScore += BLOCK_PT
     def setPLives(self):
         self.__PLives -= 1
-        
     def resetGame(self):
         self.__PScore = 0
         self.__PLives = 5
