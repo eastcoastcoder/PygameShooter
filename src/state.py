@@ -3,7 +3,6 @@ from const import *
 class state:
     __PScore = 0
     __PLives = 5
-    __lastKey = ''
     
     def __init__(self, scoreBoard, screen):
         self.__scoreBoard = scoreBoard
@@ -25,8 +24,6 @@ class state:
         self.__PScore += BLOCK_PT
     def setPLives(self):
         self.__PLives -= 1
-    def setLastKey(self, lastKey):
-        self.__lastKey = lastKey
         
     def resetGame(self):
         self.__PScore = 0
@@ -37,5 +34,3 @@ class state:
         return self.__PScore
     def getPLives(self):
         return self.__PLives
-    def getLastKey(self):
-        return self.__lastKey

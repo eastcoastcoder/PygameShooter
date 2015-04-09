@@ -44,17 +44,17 @@ class enemy(pygame.Rect):
         for blocks in self.__block:
             pygame.draw.rect(self.__screen, (self.__r, self.__g, self.__b), blocks)
     
-    def checkIt(self, gun):
+    def checkIt(self, bullet):
         for blocks in self.__block:
-            if gun.colliderect(blocks):
+            if bullet.colliderect(blocks):
                 # Get index of colliding block
                 curIndex = self.__block.index(blocks)
 
                 # Increment block hit attribute of colliding block
                 self.__blockHit[curIndex] += 1
                 
-                # Bounce the gun off block
-                gun.bounce("top")
+                # Bounce the bullet off block
+                #bullet.hit()
                 
                 # Play hit sound
                 pygame.mixer.music.play(0, 0.6)
