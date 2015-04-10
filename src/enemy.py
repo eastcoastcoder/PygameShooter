@@ -70,7 +70,6 @@ class enemy(pygame.Rect):
                     pygame.draw.rect(self.__screen, GOLD, blocks)
                     pygame.display.flip()
                 break
-    
      
     # Accessors
     def getRemaining(self):

@@ -41,8 +41,8 @@ boundLeft = pygame.Rect(ORIGIN, ORIGIN, BOUND_WID, SCREEN_WID_HT)
 boundRight = pygame.Rect(SCREEN_WID_HT-BOUND_WID, ORIGIN, BOUND_WID, SCREEN_WID_HT)
 
 # Instantiate Rect-like Children
-player = player(PLAYER_X, PLAYER_Y, PLAYER_WID, PLAYER_HT, PLAYER_SPEED, 0, screen, gameState)
-bullet = bullet(player.getX(), player.getY(), PUCK_WD_HT, PUCK_WD_HT, -PLAYER_SPEED, PLAYER_SPEED, screen, gameState, player.getPlayerDirection())
+player = player(PLAYER_X, PLAYER_Y, PLAYER_WID, PLAYER_HT, PLAYER_SPEED, 0)
+bullet = bullet(player.getX(), player.getY(), PUCK_WD_HT, PUCK_WD_HT, -PLAYER_SPEED, PLAYER_SPEED, screen, gameState, player.getPlayerDirection)
 
 def main():
     enemies = enemy(BLOCK_X, BLOCK_Y, BLOCK_WID, BLOCK_HT, screen, gameState)
@@ -58,23 +58,24 @@ def main():
         if key[pygame.K_DOWN]:
             player.checkIt("MOVE_DOWN")
         if key[pygame.K_SPACE]:
-            player.fire(player.getX(),player.getY())
-            
+            bullet.fire(player.getX(),player.getY())
     
     while True:
         moveIt(pygame.key.get_pressed())
-        
+            
+        bullet.checkIt(boundLeft, boundRight, boundTop)
         enemies.checkIt(bullet)
-        screen.fill((BLACK))
         
-        player.drawMoveBullet()
+        bullet.moveIt(player.getPlayerDirection())
+            
+        screen.fill((BLACK))
         
         pygame.draw.rect(screen, WHITE, boundTop)
         pygame.draw.rect(screen, WHITE, boundLeft)
         pygame.draw.rect(screen, WHITE, boundRight)
         
         pygame.draw.rect(screen, RED, player)
-
+        bullet.update()
         enemies.drawIt()
         
         if (gameState.getPLives() == 0 or enemies.getRemaining() == 0):
