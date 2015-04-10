@@ -42,7 +42,7 @@ boundRight = pygame.Rect(SCREEN_WID_HT-BOUND_WID, ORIGIN, BOUND_WID, SCREEN_WID_
 
 # Instantiate Rect-like Children
 player = player(PLAYER_X, PLAYER_Y, PLAYER_WID, PLAYER_HT, PLAYER_SPEED, 0)
-bullet = bullet(player.getX(), player.getY(), PUCK_WD_HT, PUCK_WD_HT, -PLAYER_SPEED, PLAYER_SPEED, screen, gameState, player.getPlayerDirection)
+bullet = bullet(player.getX(), player.getY(), PUCK_WD_HT, PUCK_WD_HT, -PLAYER_SPEED, PLAYER_SPEED, screen, gameState)
 breakMe = enemy(BLOCK_X, BLOCK_Y, BLOCK_WID, BLOCK_HT, screen, gameState)
 
 def main():
@@ -59,7 +59,6 @@ def main():
             player.checkIt("MOVE_DOWN")
         if key[pygame.K_SPACE]:
             bullet.fire(player.getX(),player.getY())
-            #bullet.__init__(player.getX(), player.getY(), PUCK_WD_HT, PUCK_WD_HT, -PLAYER_SPEED, PLAYER_SPEED, screen, gameState, player.getPlayerDirection)
             
         # Handle Close
         for event in pygame.event.get():
