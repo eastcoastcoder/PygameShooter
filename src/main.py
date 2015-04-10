@@ -10,11 +10,11 @@ Astroids - https://youtu.be/WYSupJ5r2zo
 Space Invaders - https://youtu.be/437Ld_rKM2s
 
 Specifications:
-The player should be able to moveIt and moveIt. 
+The player should be able to move and move. 
 The player shoud have access to at least two weapons 
 Grade Levels (applies to the specifications portion of the rubric)
 A - Full control against artificial agents that are actively aggressive - Smash TV
-B - More dynamic controls shooting of mobile targets that don't show intelligence (although they might moveIt back) - Astroids
+B - More dynamic controls shooting of mobile targets that don't show intelligence (although they might move back) - Astroids
 C - Simple moving and shooting against stationary or nearly stationary obstacles - Space Invaders
 '''
 import sys
@@ -69,7 +69,7 @@ def main():
     
     
     def checkIt():
-        bullet.checkIt(player, boundLeft, boundRight, boundTop)
+        bullet.checkPuck(player, boundLeft, boundRight, boundTop)
         breakMe.checkIt(bullet)
         
     
@@ -81,7 +81,7 @@ def main():
         pygame.draw.rect(screen, WHITE, boundRight)
         
         pygame.draw.rect(screen, RED, player)
-        bullet.drawIt()
+        pygame.draw.rect(screen, WHITE, bullet)
         breakMe.drawIt()
         
         if (gameState.getPLives() == 0 or breakMe.getRemaining() == 0):
@@ -100,7 +100,7 @@ def main():
         moveIt(pygame.key.get_pressed())
             
         checkIt()
-        bullet.moveIt(player.getPlayerDirection())
+        bullet.move(player.getPlayerDirection())
             
         drawIt()
         clock.tick(30)
