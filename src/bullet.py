@@ -4,8 +4,7 @@ from const import *
 from state import state
 
 class bullet(pygame.Rect):
-    __bullets = []
-    
+
     def __init__(self, xpos, ypos, wid, ht, xspeed, yspeed, screen, state):
         super(bullet, self).__init__(xpos, ypos, wid, ht)
         self.__xpos = xpos
@@ -17,24 +16,23 @@ class bullet(pygame.Rect):
         self.__screen = screen
         self.__state = state
         self.__direction = None
-        
         self.__fire = False
+        self.bullets = []
         
     def checkIt(self, enemy, boundLeft, boundRight, boundTop):
-        for bullet in self.__bullets:
+        for bullet in self.bullets:
             if (self.colliderect(boundLeft) or self.colliderect(boundRight) or self.colliderect(boundTop) or self.colliderect(enemy)):
                 self.remove(bullet)
     
     def remove(self, bullet):
-        self.__bullets.remove(bullet)
+        self.bullets.remove(bullet)
         print 'rm'
         
     def drawIt(self):
-        for bullet in self.__bullets:
+        for bullet in self.bullets:
             pygame.draw.rect(self.__screen, WHITE, bullet)
             
-            
-    def move(self):
+    def moveIt(self):
         if self.__fire == True:
             if self.__direction == 'MOVE_DOWN':
                 self.y += self.__yspeed
@@ -48,8 +46,8 @@ class bullet(pygame.Rect):
     def fire(self, player, direction):
         self.__fire = True
         self.__direction = direction
-        self.__bullets.append(bullet(player.getX(), player.getY(), PUCK_WD_HT, PUCK_WD_HT, -PLAYER_SPEED, PLAYER_SPEED, self.__screen, self.__state))
+        self.bullets.append(bullet(player.getX(), player.getY(), PUCK_WD_HT, PUCK_WD_HT, -PLAYER_SPEED, PLAYER_SPEED, self.__screen, self.__state))
         self.drawIt()
-        print self.__bullets
+        print self.bullets
         
             
