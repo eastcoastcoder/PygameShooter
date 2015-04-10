@@ -26,7 +26,7 @@ from bullet import bullet
 from state import state
 
 pygame.init()
-pygame.display.set_caption("Shooter")
+pygame.display.set_caption("Breakout")
 scoreBoard = pygame.font.SysFont( "arial", 30 )
 screen = pygame.display.set_mode((SCREEN_WID_HT, SCREEN_WID_HT))
 clock = pygame.time.Clock()
@@ -43,9 +43,9 @@ boundRight = pygame.Rect(SCREEN_WID_HT-BOUND_WID, ORIGIN, BOUND_WID, SCREEN_WID_
 # Instantiate Rect-like Children
 player = player(PLAYER_X, PLAYER_Y, PLAYER_WID, PLAYER_HT, PLAYER_SPEED, 0)
 bullet = bullet(player.getX(), player.getY(), PUCK_WD_HT, PUCK_WD_HT, -PLAYER_SPEED, PLAYER_SPEED, screen, gameState, player.getPlayerDirection)
+breakMe = enemy(BLOCK_X, BLOCK_Y, BLOCK_WID, BLOCK_HT, screen, gameState)
 
 def main():
-    enemies = enemy(BLOCK_X, BLOCK_Y, BLOCK_WID, BLOCK_HT, screen, gameState)
     
     #Player Control
     def moveIt(key):
@@ -59,15 +59,22 @@ def main():
             player.checkIt("MOVE_DOWN")
         if key[pygame.K_SPACE]:
             bullet.fire(player.getX(),player.getY())
+            #bullet.__init__(player.getX(), player.getY(), PUCK_WD_HT, PUCK_WD_HT, -PLAYER_SPEED, PLAYER_SPEED, screen, gameState, player.getPlayerDirection)
+            
+        # Handle Close
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                sys.exit()
     
-    while True:
-        moveIt(pygame.key.get_pressed())
-            
-        bullet.checkIt(boundLeft, boundRight, boundTop)
-        enemies.checkIt(bullet)
+    
+    def checkIt():
+        bullet.checkIt(player, boundLeft, boundRight, boundTop)
+        breakMe.checkIt(bullet)
         
-        bullet.moveIt(player.getPlayerDirection())
-            
+    
+    def drawIt():
         screen.fill((BLACK))
         
         pygame.draw.rect(screen, WHITE, boundTop)
@@ -75,10 +82,10 @@ def main():
         pygame.draw.rect(screen, WHITE, boundRight)
         
         pygame.draw.rect(screen, RED, player)
-        bullet.update()
-        enemies.drawIt()
+        bullet.drawIt()
+        breakMe.drawIt()
         
-        if (gameState.getPLives() == 0 or enemies.getRemaining() == 0):
+        if (gameState.getPLives() == 0 or breakMe.getRemaining() == 0):
             gameState.drawIt(SCORE_LBL, GAMEOVER_LBL)
             enemy(BLOCK_X, BLOCK_Y, BLOCK_WID, BLOCK_HT, screen, gameState)
             
@@ -88,13 +95,15 @@ def main():
         else:
             gameState.drawIt(SCORE_LBL, LIVES_LBL)
         
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                sys.exit()
-                
         pygame.display.flip()
+    
+    while True:
+        moveIt(pygame.key.get_pressed())
+            
+        checkIt()
+        bullet.moveIt(player.getPlayerDirection())
+            
+        drawIt()
         clock.tick(30)
 
 if __name__ == '__main__':
