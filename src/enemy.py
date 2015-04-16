@@ -8,13 +8,12 @@ class enemy(pygame.Rect):
     # Init array to store block hits
     __blockHit = []
     
-    def __init__(self, screen, state):
-        super(enemy, self).__init__(BLOCK_X, BLOCK_Y, BLOCK_WID, BLOCK_HT)
-        
-        self.__xpos = BLOCK_X
-        self.__ypos = BLOCK_Y
-        self.__wid = BLOCK_WID
-        self.__ht = BLOCK_HT
+    def __init__(self, xpos, ypos, wid, ht, screen, state):
+        super(enemy, self).__init__(xpos, ypos, wid, ht)
+        self.__xpos = xpos
+        self.__ypos = ypos
+        self.__wid = wid
+        self.__ht = ht
         self.__screen = screen
         self.__state = state
         
