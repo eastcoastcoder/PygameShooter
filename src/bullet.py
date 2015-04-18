@@ -4,25 +4,30 @@ from const import *
 from state import state
 
 class bullet(pygame.Rect):
-    __bullets = []
     
-    def __init__(self, xpos, ypos, wid, ht, xspeed, yspeed, screen, state):
-        super(bullet, self).__init__(xpos, ypos-14, wid, ht)
-        self.__xpos = xpos
-        self.__ypos = ypos
-        self.__wid = wid
-        self.__ht = ht
-        self.__xspeed = xspeed
-        self.__yspeed = yspeed
-        self.__screen = screen
-        self.__state = state
+    def __init__(self, screen, player):
+        self.xpos = player.x+14
+        self.ypos = player.y-14
+        self.player = player
+        self.wid = PUCK_WD_HT
+        self.ht = PUCK_WD_HT
+        super(bullet, self).__init__(self.xpos, self.ypos, self.wid, self.ht)
         
-        self.__r = 30
-        self.__g = 144
-        self.__b = 255
-        
-        self.__fire = False
-        
+        self.screen = screen
+
+    def drawIt(self):
+        pygame.draw.rect(self.screen, WHITE, (self.xpos, self.ypos, self.wid, self.ht), 0)
+        self.ypos -= 20
+
+
+            #if (bullet.colliderect(enemy)):
+            #    player.bullets.remove(bullet)
+            
+            #if (bullet.colliderect(enemy)):
+            #    self.bullets.remove(bullet)   
+            #    print("Removed")
+    
+    '''
     def checkPuck(self, player, boundLeft, boundRight, boundTop):
         for bullet in self.__bullets:
             self.__bullets.remove(bullet)
@@ -31,11 +36,7 @@ class bullet(pygame.Rect):
             #    self.__bullets.remove(bullet)
         
             if (self.colliderect(boundLeft) or self.colliderect(boundRight)):
-                self.__bullets.remove(bullet)
-        
-    def drawIt(self):
-        for bullet in self.__bullets:
-            pygame.draw.rect(self.__screen, (self.__r, self.__g, self.__b), bullet)
+                self.__bullets.remove(bullet)   
     
     def move(self, playerDirection):
         if self.__fire == True:
@@ -48,10 +49,5 @@ class bullet(pygame.Rect):
             elif playerDirection == 'MOVE_RIGHT':
                 self.x -= self.__xspeed
         
-    def fire(self, playerPosX, playerPosY):
-        self.__fire = True
-        self.__bullets.append(pygame.Rect(playerPosX, playerPosX, self.__wid, self.__ht))
-        self.drawIt()
-        print self.__bullets
-        
+    '''   
             

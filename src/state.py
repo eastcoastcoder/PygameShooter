@@ -6,7 +6,7 @@ class state:
     
     def __init__(self, scoreBoard, screen):
         self.__scoreBoard = scoreBoard
-        self.__screen = screen
+        self.screen = screen
         self.__playerDrawScore = None
         self.__playerDrawLives = None
     
@@ -16,8 +16,8 @@ class state:
             self.__playerDrawLives = self.__scoreBoard.render(lbl2, 1, WHITE)
         else:
             self.__playerDrawLives = self.__scoreBoard.render(lbl2 + str(self.getPLives()), 1, WHITE)
-        self.__screen.blit(self.__playerDrawScore, (CENTER/2-50, SCORE_Y))
-        self.__screen.blit(self.__playerDrawLives, (CENTER+150, SCORE_Y))
+        self.screen.blit(self.__playerDrawScore, (CENTER/2-50, SCORE_Y))
+        self.screen.blit(self.__playerDrawLives, (CENTER+150, SCORE_Y))
     
     # Mutators              
     def setPScore(self):

@@ -1,34 +1,51 @@
 import pygame
 from const import *
+from bullet import bullet
 
 class player(pygame.Rect):
-    __xspeed = None
-    __yspeed = None
-    __direction = 'MOVE_UP' 
     
-    def __init__(self, xpos, ypos, wid, ht, xspeed, yspeed):
-        super(player, self).__init__(xpos, ypos, wid, ht)
-        self.__xspeed = xspeed
-        self.__yspeed = yspeed
-        self.__xpos = xpos
-        self.__ypos = ypos
-
+    def __init__(self, screen, state, xpos, ypos):
+        
+        self.xpos = xpos
+        self.ypos = ypos
+        self.wid = PLAYER_WID
+        self.ht = PLAYER_HT
+        super(player, self).__init__(self.xpos, self.ypos, self.wid, self.ht)
+        
+        self.speed = PLAYER_SPEED
+        
+        self.screen = screen
+        self.state = state
+        
+        self.direction = 'MOVE_UP'
+        self.bullets = []
+        
     def checkIt(self, direction):
         if (direction == "MOVE_LEFT" and self.x >= 2*BOUND_WID):
-            self.x -= self.__xspeed
+            self.x -= self.speed
         elif (direction == "MOVE_RIGHT" and self.x <= SCREEN_WID_HT-PLAYER_WID-2*BOUND_WID):
-            self.x += self.__xspeed
+            self.x += self.speed
         elif (direction == "MOVE_UP" and self.y >= 2*BOUND_WID):
-            self.y -= self.__xspeed   
+            self.y -= self.speed   
         elif (direction == "MOVE_DOWN" and self.y <= SCREEN_WID_HT-PLAYER_HT-2*BOUND_WID):
-            self.y += self.__xspeed
-        self.__direction = direction
+            self.y += self.speed
+        self.direction = direction
         
     def getPlayerDirection(self):
-        return self.__direction
+        return self.direction
     
-    def getX(self):
-        return self.x
+    def drawIt(self):
+        pygame.draw.rect(self.screen, RED, self)
+        
+    def drawMoveBullets(self):
+        for bullet in self.bullets:
+            bullet.drawIt()
+            
+    def checkBullet(self, enemy):
+        for bullet in self.bullets:
+            enemy.checkIt(bullet)        
     
-    def getY(self):
-        return self.y
+    def fire(self):
+        self.bullets.append(bullet(self.screen, self))
+        print (self.bullets)
+        

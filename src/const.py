@@ -26,6 +26,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GOLD = (255,215,0)
+BLUE = (30, 144, 255)
 
 SCORE_LBL = "Score: "
 LIVES_LBL = "Lives: "
