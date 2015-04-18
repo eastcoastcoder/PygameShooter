@@ -97,6 +97,7 @@ def main():
         
         drawIt()
         player.checkBullet(enemy)
+        #bullet.checkIt(enemy)
         
         clock.tick(30)
 

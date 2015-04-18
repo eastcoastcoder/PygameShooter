@@ -43,7 +43,7 @@ class player(pygame.Rect):
             
     def checkBullet(self, enemy):
         for bullet in self.bullets:
-            enemy.checkIt(bullet)        
+            enemy.checkIt(bullet)
     
     def fire(self):
         self.bullets.append(bullet(self.screen, self))
