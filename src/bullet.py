@@ -7,18 +7,19 @@ from state import state
 class bullet(pygame.Rect):
     
     def __init__(self, screen, player):
-        self.xpos = player.x+14
-        self.ypos = player.y-14
+        self.x = player.x+14
+        self.y = player.y-14
         self.player = player
         self.wid = PUCK_WD_HT
         self.ht = PUCK_WD_HT
-        super(bullet, self).__init__(self.xpos, self.ypos, self.wid, self.ht)
+        super(bullet, self).__init__(self.x, self.y, self.wid, self.ht)
         
         self.screen = screen
 
     def drawIt(self):
-        pygame.draw.rect(self.screen, WHITE, (self.xpos, self.ypos, self.wid, self.ht), 0)
-        self.ypos -= PLAYER_SPEED    
+        #print('bullet self.xpos: ', self.xpos, 'bullet self.ypos: ', self.ypos )
+        pygame.draw.rect(self.screen, WHITE, (self.x, self.y, self.wid, self.ht), 0)
+        self.y -= PLAYER_SPEED    
         #self.move(self.player.getPlayerDirection())
     
     def checkIt(self, player):
@@ -42,3 +43,4 @@ class bullet(pygame.Rect):
             self.xpos -= PLAYER_SPEED
         
     '''
+
