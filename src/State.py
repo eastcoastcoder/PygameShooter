@@ -1,6 +1,6 @@
 from const import *
 
-class state:
+class State:
     __PScore = 0
     __PLives = 5
     

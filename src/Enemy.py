@@ -1,23 +1,22 @@
 import pygame, random
 from const import *
 
-class enemy(pygame.Rect):
+class Enemy(pygame.Rect):
+    # Init array to store rect blocks
+    block = []
+        
+    # Init array to store block hits
+    blockHit = []   
     
     def __init__(self, screen, state):
         self.xpos = BLOCK_X
         self.ypos = BLOCK_Y
         self.wid = BLOCK_WID
         self.ht = BLOCK_HT
-        super(enemy, self).__init__(self.xpos, self.ypos, self.wid, self.ht)
+        super(Enemy, self).__init__(self.xpos, self.ypos, self.wid, self.ht)
         
         self.screen = screen
         self.state = state
-        
-        # Init array to store rect blocks
-        self.block = []
-        
-        # Init array to store block hits
-        self.blockHit = []
         
         self.generateBlock()
         pygame.mixer.init()

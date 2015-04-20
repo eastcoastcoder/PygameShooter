@@ -20,10 +20,10 @@ C - Simple moving and shooting against stationary or nearly stationary obstacles
 import sys
 import pygame
 from const import *
-from player import player
-from enemy import enemy
-from bullet import bullet
-from state import state
+from Player import Player
+from Enemy import Enemy
+from Bullet import Bullet
+from State import State
 
 pygame.init()
 pygame.display.set_caption("Breakout")
@@ -31,7 +31,7 @@ scoreBoard = pygame.font.SysFont( "arial", 30 )
 screen = pygame.display.set_mode((SCREEN_WID_HT, SCREEN_WID_HT))
 clock = pygame.time.Clock()
 
-gameState = state(scoreBoard, screen)
+gameState = State(scoreBoard, screen)
 lastKey = '\0'
 fire = False
 
@@ -41,9 +41,9 @@ boundLeft = pygame.Rect(ORIGIN, ORIGIN, BOUND_WID, SCREEN_WID_HT)
 boundRight = pygame.Rect(SCREEN_WID_HT-BOUND_WID, ORIGIN, BOUND_WID, SCREEN_WID_HT)
 
 # Instantiate Rect-like Children
-player = player(screen, gameState, PLAYER_X, PLAYER_Y)
-bullet = bullet(screen, player)
-enemy = enemy(screen, gameState)
+player = Player(screen, gameState, PLAYER_X, PLAYER_Y)
+bullet = Bullet(screen, player)
+enemy = Enemy(screen, gameState)
 
 def main():
     
@@ -82,7 +82,8 @@ def main():
         
         if (gameState.getPLives() == 0 or enemy.getRemaining() == 0):
             gameState.drawIt(SCORE_LBL, GAMEOVER_LBL)
-            enemy(BLOCK_X, BLOCK_Y, BLOCK_WID, BLOCK_HT, screen, gameState)
+            Enemy(screen, gameState)
+            #enemy.generateBlock()
             
             pygame.display.flip()
             pygame.time.delay(3000)
@@ -97,7 +98,8 @@ def main():
         
         drawIt()
         player.checkBullet(enemy)
-        #bullet.checkIt(enemy)
+        
+        #bullet.checkIt(player, enemy)
         
         clock.tick(30)
 

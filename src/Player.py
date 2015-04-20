@@ -1,8 +1,8 @@
 import pygame
 from const import *
-from bullet import bullet
+from Bullet import Bullet
 
-class player(pygame.Rect):
+class Player(pygame.Rect):
     
     def __init__(self, screen, state, xpos, ypos):
         
@@ -10,7 +10,7 @@ class player(pygame.Rect):
         self.ypos = ypos
         self.wid = PLAYER_WID
         self.ht = PLAYER_HT
-        super(player, self).__init__(self.xpos, self.ypos, self.wid, self.ht)
+        super(Player, self).__init__(self.xpos, self.ypos, self.wid, self.ht)
         
         self.speed = PLAYER_SPEED
         
@@ -46,6 +46,6 @@ class player(pygame.Rect):
             enemy.checkIt(bullet)
     
     def fire(self):
-        self.bullets.append(bullet(self.screen, self))
+        self.bullets.append(Bullet(self.screen, self))
         print (self.bullets)
         
