@@ -26,14 +26,13 @@ from Bullet import Bullet
 from State import State
 
 pygame.init()
-pygame.display.set_caption("Breakout")
+pygame.display.set_caption("Shooter")
 scoreBoard = pygame.font.SysFont( "arial", 30 )
 screen = pygame.display.set_mode((SCREEN_WID_HT, SCREEN_WID_HT))
 clock = pygame.time.Clock()
 
+# Instantiate State
 gameState = State(scoreBoard, screen)
-lastKey = '\0'
-fire = False
 
 # Instantiate Basic Rects
 boundTop = pygame.Rect(ORIGIN, ORIGIN, SCREEN_WID_HT, BOUND_WID)
@@ -83,7 +82,6 @@ def main():
         if (gameState.getPLives() == 0 or enemy.getRemaining() == 0):
             gameState.drawIt(SCORE_LBL, GAMEOVER_LBL)
             Enemy(screen, gameState)
-            #enemy.generateBlock()
             
             pygame.display.flip()
             pygame.time.delay(3000)
@@ -98,8 +96,6 @@ def main():
         
         drawIt()
         player.checkBullet(enemy)
-        
-        #bullet.checkIt(player, enemy)
         
         clock.tick(30)
 

@@ -22,13 +22,8 @@ class Bullet(pygame.Rect):
     
     def checkIt(self, player, enemy):
         for x in player.bullets:
-            #player.bullets.remove(x)
+            player.bullets.remove(x)
             
-            if (self.colliderect(enemy)):
-                player.bullets.remove(x)
+            #if (self.colliderect(enemy)):
+            #    player.bullets.remove(x)
             
-            #if (self.colliderect(player) or self.colliderect(boundTop)):
-            #    self.__bullets.remove(Bullet)
-        
-            #if (self.colliderect(boundLeft) or self.colliderect(boundRight)):
-            #    self.__bullets.remove(Bullet)   
